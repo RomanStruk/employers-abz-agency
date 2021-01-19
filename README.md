@@ -1,62 +1,62 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Задание
+Каталог сотрудников представляет собой базу данных с админ интерфейсом доступным только
+авторизованным пользователям. По этой ссылке находятся wireframes админ интерфейса – это то, что
+должно у Вас получиться после выполнения всех подзадач. При создании UI используйте только готовые
+компоненты AdminLTE в соответствии с wireframes.
+1. Информация о каждом сотруднике должна иметь следующие данные:
+a. ФИО;
+b. Должность;
+c. Дата приема на работу;
+d. Номер телефона:
+e. Электронная почта;
+f. Размер заработной платы;
+g. Фотография.
+h. Системные поля: created_at, updated_at, admin_created_id, admin_updated_id которые не
+должны быть доступны для редактирования админу но должны обновляться системой
+во время CRUD операций.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+2. У каждого сотрудника есть ровно 1 начальник. Для простоты будем считать что подчинение
+одного сотрудника другому не зависит от должности каждого из них, т.е. Два сотрудника могут
+иметь одинаковую должность но при этом один является начальником другого.
+3. База данных должна содержать не менее 50 000 сотрудников и 5 уровней подчинения (в
+предполагаемой компании не может быть руководителя 6 го уровня).
+4. Для должности сотрудника должна быть предусмотрена справочная таблица. Не забудьте
+добавить системные поля и в эту таблицу.
 
-## About Laravel
+(<)​ Подзадачи
+1. Создайте базу данных используя миграции Laravel.
+2. Используйте Laravel seeder для заполнения базы данных фейковой информацией. Данные
+сотрудника должны выглядеть реалистично, а не быть просто строкой рандомных символов. Мы
+рекомендуем использовать библиотеку Faker для этого, но можно воспользоваться любой
+другой с которой Вы больше знакомы.
+3. Используя стандартные функции Laravel реализуйте функционал по аутентификации
+пользователя.
+4. Создайте страницу на которой будет выводиться список сотрудников в табличном виде
+(используя datatables) с отображением всех полей сотрудника, возможностью сортировать по
+любому полю и осуществлять поиск.
+5. Реализуйте остальные CRUD операции для записей сотрудников. После сохранения отправлять
+пользователя на страницу со списком. Все поля должны быть редактируемыми, включая поле
+начальника каждого сотрудника. Для всех полей должна быть реализована валидация:
+a. ФИО: минимум 2, максимум 256 символов;
+b. Дата приема на работу: валидная дата, формат при выводе дд.мм.гг;
+c. Номер телефона: валидный номер телефона в международном формате, разрешены
+только украинские номера;
+d. Электронная почта: валидный адрес электронной почты;
+e. Размер заработной платы: дробное число от 0 до 500,000;
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+f. Руководитель: учитывать условия для иерархии и должна иметь проверку на
+целостность данных при сохранении;
+g. Должность: должна иметь проверку на целостность данных при сохранении;
+6. Осуществите возможность загружать фотографию сотрудника и отобразите ее на странице, где
+можно редактировать данные о сотруднике. Добавьте дополнительную колонку с уменьшенной
+фотографией сотрудника на странице списка всех сотрудников. Ограничения к файлу с
+фотографией: максимум 5 Мб, минимум 300x300 пикселей, форматы: jpg/png. Выходной формат
+300x300px, в jpg (80% quality) вырезаем центр/центр, делаем автоповорот фото при
+необходимости.
+7. Осуществите операцию по переподчинению сотрудников в случае удаления записи их
+начальника. Вы получите дополнительный бонус если реализуете этот функционал с
+применением встроенных механизмов/парадигм, предлагаемых Eloquent ORM.
+8. Реализуйте аналогичный CRUD интерфейс для справочной таблицы должностей. Ограничение
+на длину названия должности: максимум 256 символов. После сохранения отправлять
+пользователя на страницу со списком.
