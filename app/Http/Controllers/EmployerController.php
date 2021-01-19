@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class EmployerController extends Controller
 {
@@ -11,8 +13,22 @@ class EmployerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = Employer::select('*');
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'.route('employers.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
+                    return $btn;
+                })
+                ->addColumn('photo', function($row){
+                    return '<img src="'.$row->photo.'" class="img-circle" width="35" height="35">';
+                })
+                ->rawColumns(['action', 'photo'])
+                ->make(true);
+        }
         return view('employer.index');
     }
 
