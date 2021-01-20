@@ -16,16 +16,16 @@
 <div class="clearfix"></div>
 
 @isset($position->created_at)
-    <div class="form-group">
         <div class="row">
             <div class="col-6"><b>Created at:</b>&nbsp;{{$position->created_at->format(config('setting.date_format'))}}</div>
             <div class="col-6"><b>Admin created ID:</b>&nbsp;{{$position->created_id}}</div>
         </div>
+@endisset
+@isset($position->updated_at)
         <div class="row">
             <div class="col-6"><b>Updated at:</b>&nbsp;{{$position->updated_at->format(config('setting.date_format'))}}</div>
             <div class="col-6"><b>Admin updated ID:</b>&nbsp;{{$position->updated_id}}</div>
         </div>
-    </div>
 @endisset
 
 <div class="row">

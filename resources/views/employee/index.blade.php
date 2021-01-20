@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('title')
     <div class="row">
-        <div class="col-6"><h1>Employers</h1></div>
+        <div class="col-6"><h1>Employees</h1></div>
         <div class="col-6 text-right">
-            <a href="{{route('employers.create')}}" class="btn btn-dark">Add Employer</a>
+            <a href="{{route('employees.create')}}" class="btn btn-dark">Add Employee</a>
         </div>
     </div>
 @endsection
 @section('content')
     <div class="container">
-        <h5>Employer List</h5>
-        <table class="table table-striped table-bordered table-sm" id="employers-data-table">
+        <h5>Employee List</h5>
+        <table class="table table-striped table-bordered table-sm" id="employees-data-table">
             <thead>
             <tr>
                 <th>Photo</th>
@@ -31,10 +31,10 @@
 
 @push('script')
 <script type="application/javascript">
-    let table = $('#employers-data-table').DataTable({
+    let table = $('#employees-data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{route('employers.index')}}",
+        ajax: "{{route('employees.index')}}",
         columns: [
             {data: 'photo', name: 'photo', orderable: false, searchable: false},
             {data: 'name', name: 'name'},

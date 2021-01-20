@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('employers', \App\Http\Controllers\EmployerController::class)
+Route::resource('employees', \App\Http\Controllers\EmployeeController::class)
     ->except('show');
 Route::resource('positions', \App\Http\Controllers\PositionController::class)
     ->except('show');

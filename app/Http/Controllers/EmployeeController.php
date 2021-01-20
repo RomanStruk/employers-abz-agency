@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employer;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class EmployerController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,12 @@ class EmployerController extends Controller
      */
     public function index(Request $request)
     {
-//        return Employer::with('position')->get();
         if ($request->ajax()) {
-            $data = Employer::select('*')->with('position');
+            $data = Employee::select('*')->with('position');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    return view('component.action')->with('id', $row->id)->with('route', 'employers')->render();
+                    return view('component.action')->with('id', $row->id)->with('route', 'employees')->render();
                 })
                 ->addColumn('photo', function($row){
                     return view('component.img')->with('photo', $row->photo)->render();
@@ -56,10 +55,10 @@ class EmployerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Employer $employer)
+    public function show(Employee $employee)
     {
         //
     }
@@ -67,24 +66,24 @@ class EmployerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\View\View
+     * @param  \App\Models\Employee  $employee
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Employer $employer)
+    public function edit(Employee $employee)
     {
-        $employer->load('position:id,name');
-        $employer->load('head:id,name');
-        return view('employee.edit')->with('employee', $employer);
+        $employee->load('position:id,name');
+        $employee->load('head:id,name');
+        return view('employee.edit')->with('employee', $employee);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Employer $employer
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Employee  $employee
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employer $employer)
+    public function update(Request $request, Employee $employee)
     {
         //
     }
@@ -92,12 +91,12 @@ class EmployerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Employer  $employer
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \App\Models\Employee  $employee
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Employer $employer)
+    public function destroy(Employee $employee)
     {
-        $employer->delete();
-        return redirect()->back()->with('success', 'Employer deleted');
+        $employee->delete();
+        return redirect()->back()->with('success', 'Employee deleted');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employer extends Model
+class Employee extends Model
 {
     use HasFactory;
 
@@ -30,6 +30,6 @@ class Employer extends Model
     }
 
     public function head(){
-        return $this->belongsTo(Employer::class);
+        return $this->belongsTo(Employee::class);
     }
 }
