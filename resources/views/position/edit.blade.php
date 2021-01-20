@@ -8,8 +8,9 @@
             <h3 class="card-title">Edit Position</h3>
         </div>
         <div class="card-body">
-            <form  action="{{ route('positions.update', 1) }}" method="post">
+            <form  action="{{ route('positions.update', $position) }}" method="post">
                 @csrf
+                @method('PATCH')
                 @include('position._form')
             </form>
         </div>

@@ -10,7 +10,7 @@
 @section('content')
     <div class="container">
         <h5>Employer List</h5>
-        <table class="table table-bordered data-table" id="employers-data-table">
+        <table class="table table-striped table-bordered table-sm" id="employers-data-table">
             <thead>
             <tr>
                 <th>Photo</th>
@@ -20,7 +20,7 @@
                 <th>Phone number</th>
                 <th>Email</th>
                 <th>Salary</th>
-                <th width="100px">Action</th>
+                <th width="60px">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +29,22 @@
     </div>
 @endsection
 
-@section('script')
-
-@endsection
+@push('script')
+<script type="application/javascript">
+    let table = $('#employers-data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{route('employers.index')}}",
+        columns: [
+            {data: 'photo', name: 'photo', orderable: false, searchable: false},
+            {data: 'name', name: 'name'},
+            {data: 'position.name', name: 'position_id'},
+            {data: 'date_of_employment', name: 'date_of_employment'},
+            {data: 'phone', name: 'phone'},
+            {data: 'email', name: 'email'},
+            {data: 'salary', name: 'salary'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+</script>
+@endpush

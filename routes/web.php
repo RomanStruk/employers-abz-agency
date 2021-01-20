@@ -19,7 +19,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('employers', \App\Http\Controllers\EmployerController::class);
-Route::resource('positions', \App\Http\Controllers\PositionController::class);
+Route::resource('employers', \App\Http\Controllers\EmployerController::class)
+    ->except('show');
+Route::resource('positions', \App\Http\Controllers\PositionController::class)
+    ->except('show');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

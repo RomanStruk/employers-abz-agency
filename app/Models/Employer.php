@@ -17,11 +17,13 @@ class Employer extends Model
         'salary',
         'head',
         'date_of_employment',
-        'created_id',
-        'updated_id',
     ];
 
     protected $casts = [
-        'date_of_employment' => 'datetime',
+        'date_of_employment' => 'datetime:d.m.y',
     ];
+
+    public function position(){
+        return $this->belongsTo(Position::class);
+    }
 }

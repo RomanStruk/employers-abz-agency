@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PositionRequest;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PositionController extends Controller
 {
@@ -12,10 +14,19 @@ class PositionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $positions = Position::paginate();
-        return view('position.index')->with('positions', $positions);
+        if ($request->ajax()) {
+            $data = Position::select('*');
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    return view('component.action')->with('id', $row->id)->with('route', 'positions')->render();
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('position.index');
     }
 
     /**
@@ -34,31 +45,24 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PositionRequest $request)
     {
-        //
+        $position = new Position($request->validated());
+        $position->save();
+        return redirect()->route('positions.index')->with('success', 'Position Created');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Position $position)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Position  $position
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Position $position)
     {
-        return view('position.edit');
+//        dd($position->attributesToArray());
+        return view('position.edit')->with('position', $position);
     }
 
     /**
@@ -68,9 +72,10 @@ class PositionController extends Controller
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Position $position)
+    public function update(PositionRequest $request, Position $position)
     {
-        //
+        $position->update($request->validated());
+        return redirect()->back()->with('success', 'Position updated');
     }
 
     /**

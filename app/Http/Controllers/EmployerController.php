@@ -15,16 +15,16 @@ class EmployerController extends Controller
      */
     public function index(Request $request)
     {
+//        return Employer::with('position')->get();
         if ($request->ajax()) {
-            $data = Employer::select('*');
+            $data = Employer::select('*')->with('position');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'.route('employers.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
-                    return $btn;
+                    return view('component.action')->with('id', $row->id)->with('route', 'employers')->render();
                 })
                 ->addColumn('photo', function($row){
-                    return '<img src="'.$row->photo.'" class="img-circle" width="35" height="35">';
+                    return view('component.img')->with('photo', $row->photo)->render();
                 })
                 ->rawColumns(['action', 'photo'])
                 ->make(true);
