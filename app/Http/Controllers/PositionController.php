@@ -12,7 +12,7 @@ class PositionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -32,7 +32,7 @@ class PositionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -43,7 +43,7 @@ class PositionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(PositionRequest $request)
     {
@@ -61,7 +61,6 @@ class PositionController extends Controller
      */
     public function edit(Position $position)
     {
-//        dd($position->attributesToArray());
         return view('position.edit')->with('position', $position);
     }
 
@@ -70,7 +69,7 @@ class PositionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Position  $position
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(PositionRequest $request, Position $position)
     {
@@ -86,6 +85,7 @@ class PositionController extends Controller
      */
     public function destroy(Position $position)
     {
-        //
+        $position->delete();
+        return redirect()->back()->with('success', 'Position deleted');
     }
 }

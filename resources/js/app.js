@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('admin-lte');
 
 require('admin-lte/plugins/select2/js/select2.full.min');
 
@@ -16,6 +17,7 @@ bsCustomFileInput = require('admin-lte/plugins/bs-custom-file-input/bs-custom-fi
 //dataTables
 require('admin-lte/plugins/datatables/jquery.dataTables');
 require('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4');
+require('admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min');
 require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive');
 require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4');
 

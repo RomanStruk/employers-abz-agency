@@ -21,7 +21,7 @@ class CreateEmployersTable extends Migration
             $table->string('email', 256);
             $table->bigInteger('position_id')->unsigned();
             $table->float('salary')->unsigned();
-            $table->bigInteger('head')->unsigned();
+            $table->bigInteger('head_id')->unsigned();
             $table->timestamp('date_of_employment');
 
             $table->bigInteger('created_id')->unsigned();

@@ -4,7 +4,7 @@
     </label>
     @isset($employer->photo)
         {{$employer->photo}}
-    <img class="img-bordered d-block mb-2" src="https://placehold.it/150x100" alt="..." height="150" width="150">
+        <img class="img-bordered d-block mb-2" src="https://placehold.it/150x100" alt="..." height="150" width="150">
     @endisset
     <div class="custom-file">
         <input type="file" class="custom-file-input @error('photo') is-invalid @enderror" id="photoFile">
@@ -30,7 +30,6 @@
     @error('name')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        The name has to contain at least 2 characters
     </div>
     @enderror
     <small id="nameHelpInline" class="text-muted  float-right">
@@ -41,14 +40,14 @@
 {{--Phone--}}
 <div class="form-group">
     <label class="col-form-label" for="inputPhone">
-        @error('name')<i class="far fa-times-circle"></i>@enderror Phone
+        @error('phone')<i class="far fa-times-circle"></i>@enderror Phone
     </label>
     <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputPhone" placeholder="Enter ..."
-           name="phone">
-    @error('name')
+           name="phone" value="{{ $employer->phone ?? old('phone') }}">
+    @error('phone')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        Invalid phone number
+        {{--        Invalid phone number--}}
     </div>
     @enderror
     <small id="nameHelpInline" class="text-muted float-right">
@@ -59,21 +58,17 @@
 {{--Position--}}
 <div class="form-group">
     <label class="col-form-label" for="inputPosition">
-        @error('name')<i class="far fa-times-circle"></i>@enderror Position
+        @error('position')<i class="far fa-times-circle"></i>@enderror Position
     </label>
-    <select class="form-control select2 @error('name') is-invalid @enderror" style="width: 100%;" name="inputPosition">
-        <option selected="selected">Alabama</option>
-        <option>Alaska</option>
-        <option>California</option>
-        <option>Delaware</option>
-        <option>Tennessee</option>
-        <option>Texas</option>
-        <option>Washington</option>
+    <select class="form-control select2 @error('position') is-invalid @enderror" style="width: 100%;" name="position">
+        @isset($employer->position)
+            <option selected="selected" value="{{$employer->position->id}}">{{$employer->position->name}}</option>
+        @endisset
     </select>
-    @error('name')
+    @error('position')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        Invalid Position
+        {{--        Invalid Position--}}
     </div>
     @enderror
 </div>
@@ -81,17 +76,18 @@
 {{--Salary--}}
 <div class="form-group">
     <label class="col-form-label" for="inputSalary">
-        @error('name')<i class="far fa-times-circle"></i>@enderror Salary, $
+        @error('salary')<i class="far fa-times-circle"></i>@enderror Salary, $
     </label>
-    <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputSalary" placeholder="Enter ..."
-           name="salary">
-    @error('name')
+    <input type="text" class="form-control @error('salary') is-invalid @enderror" id="inputSalary"
+           placeholder="Enter ..."
+           name="salary" value="{{ $employer->salary ?? old('salary') }}">
+    @error('salary')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        Maximum 500,000
+        {{--        Maximum 500,000--}}
     </div>
     @enderror
-    <small id="nameHelpInline" class="text-muted float-right">
+    <small class="text-muted float-right">
         Must be 0-500,000 characters long.
     </small>
 </div>
@@ -114,52 +110,40 @@
     @error('name')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        There is no such person in the database
+{{--        There is no such person in the database--}}
     </div>
     @enderror
 </div>
+
 
 {{--Date of employment--}}
 <div class="form-group">
-    <label class="col-form-label" for="inputDateEmployment">
-        @error('name')<i class="far fa-times-circle"></i>@enderror Date of employment
+    <label class="col-form-label" for="inputDate">
+        @error('date_of_employment')<i class="far fa-times-circle"></i>@enderror Date of employment
     </label>
-    <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputDateEmployment"
-           placeholder="Enter ..." name="date_employment">
-    @error('name')
+    <input type="text" class="form-control datetimepicker-input @error('date_of_employment') is-invalid @enderror"
+           id="adddate"
+           data-toggle="datetimepicker" data-target="#adddate" name="date_of_employment"
+           value="{{ $employer->date_of_employment ? $employer->date_of_employment->format('d/m/Y') : old('date_of_employment') }}"/>
+    @error('date_of_employment')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        Maximum 500,000
     </div>
     @enderror
     <small id="nameHelpInline" class="text-muted float-right">
-        Must be 0-500,000 characters long.
+        Must be valid date.
     </small>
 </div>
-
-<!-- Date -->
-<div class="form-group">
-    <label class="col-form-label" for="inputDate">
-        @error('name')<i class="far fa-times-circle"></i>@enderror Date added:
-    </label>
-    <input type="text" class="form-control datetimepicker-input @error('name') is-invalid @enderror" id="adddate"
-           data-toggle="datetimepicker" data-target="#adddate"/>
-    @error('name')
-        <strong>{{ $message }}</strong>
-    @enderror
-</div>
-
+<div class="clearfix"></div>
 @isset($employer->created_at)
-<div class="form-group">
     <div class="row">
-        <div class="col-6"><b>Created at:</b>&nbsp;02.04.19</div>
-        <div class="col-6"><b>Admin created ID:</b>&nbsp;123456</div>
+        <div class="col-6"><b>Created at:</b>&nbsp;{{$employer->created_at}}</div>
+        <div class="col-6"><b>Admin created ID:</b>&nbsp;{{$employer->updated_id}}</div>
     </div>
     <div class="row">
-        <div class="col-6"><b>Updated at:</b>&nbsp;02.04.19</div>
-        <div class="col-6"><b>Admin updated ID:</b>&nbsp;123456</div>
+        <div class="col-6"><b>Updated at:</b>&nbsp;{{$employer->updated_at}}</div>
+        <div class="col-6"><b>Admin updated ID:</b>&nbsp;{{$employer->updated_id}}</div>
     </div>
-</div>
 @endisset
 
 <div class="form-group form-inline float-right">

@@ -21,6 +21,8 @@ class Employer extends Model
 
     protected $casts = [
         'date_of_employment' => 'datetime:d.m.y',
+        'updated_at' => 'datetime:d.m.y',
+        'created_at' => 'datetime:d.m.y',
     ];
 
     public function position(){

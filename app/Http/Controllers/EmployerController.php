@@ -59,7 +59,7 @@ class EmployerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employer $employer)
     {
         //
     }
@@ -68,21 +68,22 @@ class EmployerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(Employer $employer)
     {
-        return view('employer.edit');
+        $employer->load('position:id,name');
+        return view('employer.edit')->with('employer', $employer);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Employer $employer
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employer $employer)
     {
         //
     }
@@ -90,11 +91,12 @@ class EmployerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Employer  $employer
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Employer $employer)
     {
-        //
+        $employer->delete();
+        return redirect()->back()->with('success', 'Employer deleted');
     }
 }
