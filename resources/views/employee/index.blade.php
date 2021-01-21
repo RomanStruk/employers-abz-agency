@@ -31,6 +31,7 @@
 
 @push('script')
 <script type="application/javascript">
+
     let table = $('#employees-data-table').DataTable({
         processing: true,
         serverSide: true,
@@ -39,7 +40,7 @@
             {data: 'photo', name: 'photo', orderable: false, searchable: false},
             {data: 'name', name: 'name'},
             {data: 'position.name', name: 'position_id'},
-            {data: 'date_of_employment', name: 'date_of_employment'},
+            {data: 'date_of_employment', name: 'date_of_employment',  render:function(data){return moment(data).format('DD.MM.YY');}},
             {data: 'phone', name: 'phone'},
             {data: 'email', name: 'email'},
             {data: 'salary', name: 'salary'},

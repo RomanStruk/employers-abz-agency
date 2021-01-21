@@ -17,12 +17,11 @@ class Employee extends Model
         'salary',
         'head',
         'date_of_employment',
+        'photo'
     ];
 
     protected $casts = [
-        'date_of_employment' => 'datetime:d.m.y',
-        'updated_at' => 'datetime:d.m.y',
-        'created_at' => 'datetime:d.m.y',
+        'date_of_employment' => 'date',
     ];
 
     public function position(){

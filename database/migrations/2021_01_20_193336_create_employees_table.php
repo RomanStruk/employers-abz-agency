@@ -27,7 +27,7 @@ class CreateEmployeesTable extends Migration
             $table->bigInteger('created_id')->unsigned();
             $table->bigInteger('updated_id')->unsigned();
 
-            $table->string('photo')->default('/storage/user2-160x160.jpg');
+            $table->string('photo');
 
             $table->timestamps();
         });

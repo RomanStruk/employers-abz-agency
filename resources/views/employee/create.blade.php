@@ -8,7 +8,7 @@
             <h3 class="card-title">Add Employee</h3>
         </div>
         <div class="card-body">
-            <form  action="{{ route('employees.store') }}" method="post">
+            <form  action="{{ route('employees.store') }}" method="post"  enctype="multipart/form-data">
                 @csrf
                 @include('employee._form')
             </form>

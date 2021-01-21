@@ -8,6 +8,10 @@ global.moment = require('moment');
 require('moment/locale/en-gb');
 moment.locale('en-gb');
 
+//Mask
+require('admin-lte/plugins/inputmask/jquery.inputmask.min')
+
+//Date Picker
 require('admin-lte/plugins/daterangepicker/daterangepicker')
 require('admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min')
 
@@ -21,15 +25,3 @@ require('admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min');
 require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive');
 require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4');
 
-$(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2();
-
-    //Date range picker
-    $('#adddate').datetimepicker({
-        format: 'L'
-    });
-
-    bsCustomFileInput.init();
-
-})

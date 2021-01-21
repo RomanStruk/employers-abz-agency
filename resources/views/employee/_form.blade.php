@@ -4,16 +4,15 @@
     </label>
     @isset($employee->photo)
 
-        <img class="img-bordered d-block mb-2" src="{{$employee->photo}}" alt="..." height="150" width="150">
+        <img class="img-bordered d-block mb-2" src="{{asset('storage/image/employee/origin/'.$employee->photo)}}" alt="..." height="150" width="150">
     @endisset
     <div class="custom-file">
-        <input type="file" class="custom-file-input @error('photo') is-invalid @enderror" id="photoFile">
+        <input type="file" class="custom-file-input @error('photo') is-invalid @enderror" id="photoFile" name="photo">
         <label class="custom-file-label" for="photoFile">Choose photo</label>
     </div>
     @error('photo')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
-        Invalid Image
     </div>
     @enderror
     <small id="nameHelpInline" class="text-muted float-right">
@@ -42,7 +41,7 @@
     <label class="col-form-label" for="inputPhone">
         @error('phone')<i class="far fa-times-circle"></i>@enderror Phone
     </label>
-    <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputPhone" placeholder="Enter ..."
+    <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="inputPhone" placeholder="Enter ..."
            name="phone" value="{{ $employee->phone ?? old('phone') }}">
     @error('phone')
     <div class="invalid-feedback d-inline">
@@ -55,17 +54,31 @@
     </small>
 </div>
 
+{{--Email--}}
+<div class="form-group">
+    <label class="col-form-label" for="inputEmail">
+        @error('email')<i class="far fa-times-circle"></i>@enderror Email
+    </label>
+    <input type="text" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Enter ..."
+           name="email" value="{{ $employee->email ?? old('email') }}">
+    @error('email')
+    <div class="invalid-feedback d-inline">
+        <strong>{{ $message }}</strong>
+    </div>
+    @enderror
+</div>
+
 {{--Position--}}
 <div class="form-group">
     <label class="col-form-label" for="inputPosition">
-        @error('position')<i class="far fa-times-circle"></i>@enderror Position
+        @error('position_id')<i class="far fa-times-circle"></i>@enderror Position
     </label>
-    <select class="form-control select2 @error('position') is-invalid @enderror" style="width: 100%;" name="position">
+    <select class="form-control select2 @error('position_id') is-invalid @enderror" style="width: 100%;" name="position_id" id="inputPosition">
         @isset($employee->position)
             <option selected="selected" value="{{$employee->position->id}}">{{$employee->position->name}}</option>
         @endisset
     </select>
-    @error('position')
+    @error('position_id')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
         {{--        Invalid Position--}}
@@ -95,15 +108,15 @@
 {{--Head--}}
 <div class="form-group">
     <label class="col-form-label" for="inputHead">
-        @error('name')<i class="far fa-times-circle"></i>@enderror Head
+        @error('head_id')<i class="far fa-times-circle"></i>@enderror Head
     </label>
-    <select class="form-control select2 @error('name') is-invalid @enderror" style="width: 100%;" name="head_id"
+    <select class="form-control select2 @error('head_id') is-invalid @enderror" style="width: 100%;" name="head_id"
             id="inputHead">
         @isset($employee->head)
         <option selected="selected" value="{{$employee->head->id}}">{{$employee->head->name}}</option>
         @endisset
     </select>
-    @error('name')
+    @error('head_id')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
 {{--        There is no such person in the database--}}
@@ -114,13 +127,13 @@
 
 {{--Date of employment--}}
 <div class="form-group">
-    <label class="col-form-label" for="inputDate">
+    <label class="col-form-label" for="date_of_employment">
         @error('date_of_employment')<i class="far fa-times-circle"></i>@enderror Date of employment
     </label>
     <input type="text" class="form-control datetimepicker-input @error('date_of_employment') is-invalid @enderror"
-           id="adddate"
-           data-toggle="datetimepicker" data-target="#adddate" name="date_of_employment"
-           value="{{ isset($employee->date_of_employment) ? $employee->date_of_employment->format('d/m/Y') : old('date_of_employment') }}"/>
+           id="date_of_employment"
+           data-toggle="datetimepicker" data-target="#date_of_employment" name="date_of_employment"
+           value="{{ isset($employee->date_of_employment) ? $employee->date_of_employment->format(config('setting.date_format')) : old('date_of_employment') }}"/>
     @error('date_of_employment')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
@@ -148,3 +161,70 @@
     <a href="{{route('employees.index')}}" class="btn btn-outline-dark m-2">Cancel</a>
     <button type="submit" class="btn btn-primary m-2">Save</button>
 </div>
+
+@push('script')
+    <script type="application/javascript">
+
+
+        $('#inputPhone').inputmask("+380(99)9999999")
+
+        //Initialize Select2 Elements
+        let select2PositionOptions = {
+            ajax: {
+                url: "{{route('positions.index')}}",
+                dataType: 'json',
+                delay: 1000,
+                data: function (params) {
+                    return {
+                        columns:[{data:'id', name:'id'}, {data:'name', name:'name', search:{value:params.term}}],
+                    };
+                },
+                processResults: function (data) {
+                    let res = $.map(data.data, function (obj) {
+                        obj.text = obj.name; // replace name with the property used for the text
+                        return obj;
+                    });
+                    return {results: res};
+                },
+                cache: true
+            },
+            placeholder: 'Enter position',
+            minimumInputLength: 1,
+            allowClear: false
+        };
+        let select2HeadOptions = {
+            ajax: {
+                url: "{{route('employees.index')}}",
+                dataType: 'json',
+                delay: 1000,
+                data: function (params) {
+                    return {
+                        columns:[{data:'id', name:'id'}, {data:'name', name:'name', search:{value:params.term}}],
+                    };
+                },
+                processResults: function (data) {
+                    let res = $.map(data.data, function (obj) {
+                        obj.text = obj.name; // replace name with the property used for the text
+                        return obj;
+                    });
+                    return {results: res};
+                },
+                cache: true
+            },
+            placeholder: 'Enter Head',
+            minimumInputLength: 1,
+            allowClear: false
+        };
+        $('#inputPosition').select2(select2PositionOptions);
+        $('#inputHead').select2(select2HeadOptions);
+
+
+        bsCustomFileInput.init();
+
+        //Date range picker
+        $('#date_of_employment').datetimepicker({
+            format: 'DD.MM.YYYY'
+        });
+
+    </script>
+@endpush
