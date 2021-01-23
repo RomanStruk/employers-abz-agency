@@ -15,8 +15,8 @@ class PositionObserver
      */
     public function creating(Position $position)
     {
-        $position->created_id = auth()->user()->id;
-        $position->updated_id = auth()->user()->id;
+        $position->admin_created_id = auth()->user()->id;
+        $position->admin_updated_id = auth()->user()->id;
     }
 
     /**
@@ -27,7 +27,7 @@ class PositionObserver
      */
     public function updating(Position $position)
     {
-        $position->updated_id = auth()->user()->id;
+        $position->admin_updated_id = auth()->user()->id;
     }
 
 }

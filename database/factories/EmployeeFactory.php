@@ -22,16 +22,16 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
+        $positions = Position::all();
         return [
             'name' => $this->faker->name,
-            'phone' => '+380('.random_int(10, 99).')'.random_int(1000000, 9999999),
+            'phone' => '+380(66)'.random_int(1000000, 9999999),
             'email' => $this->faker->unique()->email,
-            'position_id' => Position::all()->random()->id,
+            'position_id' => $positions->random()->id,
             'salary' => $this->faker->randomFloat(3,0, 500),
-            'head_id' => 1,
             'date_of_employment' => now(),
-            'created_id' => 1,
-            'updated_id' => 1,
+            'admin_created_id' => 1,
+            'admin_updated_id' => 1,
             'photo' => 'default.jpg',
         ];
     }

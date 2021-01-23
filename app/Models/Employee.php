@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Employee extends Model
 {
+    use NodeTrait;
     use HasFactory;
 
     protected $fillable = [
@@ -15,7 +17,6 @@ class Employee extends Model
         'email',
         'position_id',
         'salary',
-        'head',
         'date_of_employment',
         'photo'
     ];
@@ -26,9 +27,5 @@ class Employee extends Model
 
     public function position(){
         return $this->belongsTo(Position::class);
-    }
-
-    public function head(){
-        return $this->belongsTo(Employee::class);
     }
 }

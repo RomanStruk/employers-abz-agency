@@ -1,11 +1,10 @@
 <div class="row">
-    <div class="col-2">
-        <a class="" href="{{route($route.'.edit', $id)}}" title="Edit">
+    <div class="col-6">
+        <a class="btn btn-link p-0" href="{{route($route.'.edit', $id)}}" title="Edit">
             <i class="fas fa-pencil-alt"></i>
         </a>
     </div>
-    <div class="col-auto"></div>
-    <div class="col-2">
+    <div class="col-6">
         <form method="POST" action="{{route($route.'.destroy', $id)}}">
             @csrf
             @method('DELETE')

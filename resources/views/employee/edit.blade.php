@@ -8,7 +8,7 @@
             <h3 class="card-title">Edit Employee</h3>
         </div>
         <div class="card-body">
-            <form  action="{{ route('employees.update', 1) }}" method="post"  enctype="multipart/form-data">
+            <form  action="{{ route('employees.update', $employee->id) }}" method="post"  enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 @include('employee._form')

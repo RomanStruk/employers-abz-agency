@@ -23,8 +23,8 @@ class PositionFactory extends Factory
     {
         return [
             'name' => $this->faker->jobTitle,
-            'created_id' => 1,
-            'updated_id' => 1
+            'admin_created_id' => 1,
+            'admin_updated_id' => 1
         ];
     }
 }

@@ -33,6 +33,7 @@
 <script type="application/javascript">
 
     let table = $('#employees-data-table').DataTable({
+        "pageLength": 50,
         processing: true,
         serverSide: true,
         ajax: "{{route('employees.index')}}",

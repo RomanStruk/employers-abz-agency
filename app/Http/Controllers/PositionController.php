@@ -80,11 +80,14 @@ class PositionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Position  $position
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Position $position
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Position $position)
     {
+        if ($position->employees->count() > 0)
+            return redirect()->back()->with('error', 'Position has employees');
         $position->delete();
         return redirect()->back()->with('success', 'Position deleted');
     }

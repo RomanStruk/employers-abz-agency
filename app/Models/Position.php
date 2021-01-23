@@ -18,4 +18,9 @@ class Position extends Model
         'updated_at' => 'datetime:d.m.y',
         'created_at' => 'datetime:d.m.y',
     ];
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

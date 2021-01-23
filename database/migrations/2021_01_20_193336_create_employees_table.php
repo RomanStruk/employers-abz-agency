@@ -16,16 +16,17 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 256);
-            $table->string('phone', 256);
-            $table->string('email', 256);
-            $table->bigInteger('position_id')->unsigned();
-            $table->float('salary')->unsigned();
-            $table->bigInteger('head_id')->unsigned();
-            $table->timestamp('date_of_employment');
+            $table->string('name', 256)->index();
+            $table->string('phone', 256)->index();
+            $table->string('email', 256)->index();
+            $table->bigInteger('position_id')->unsigned()->index();
+            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
 
-            $table->bigInteger('created_id')->unsigned();
-            $table->bigInteger('updated_id')->unsigned();
+            $table->float('salary')->unsigned()->index();
+            $table->timestamp('date_of_employment')->index();
+
+            $table->bigInteger('admin_created_id')->unsigned()->index();
+            $table->bigInteger('admin_updated_id')->unsigned()->index();
 
             $table->string('photo');
 

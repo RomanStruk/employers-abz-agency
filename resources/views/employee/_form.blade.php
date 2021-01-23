@@ -108,15 +108,15 @@
 {{--Head--}}
 <div class="form-group">
     <label class="col-form-label" for="inputHead">
-        @error('head_id')<i class="far fa-times-circle"></i>@enderror Head
+        @error('parent_id')<i class="far fa-times-circle"></i>@enderror Head
     </label>
-    <select class="form-control select2 @error('head_id') is-invalid @enderror" style="width: 100%;" name="head_id"
+    <select class="form-control select2 @error('parent_id') is-invalid @enderror" style="width: 100%;" name="parent_id"
             id="inputHead">
-        @isset($employee->head)
-        <option selected="selected" value="{{$employee->head->id}}">{{$employee->head->name}}</option>
+        @isset($employee->parent)
+        <option selected="selected" value="{{$employee->parent->id}}">{{$employee->parent->name}}</option>
         @endisset
     </select>
-    @error('head_id')
+    @error('parent_id')
     <div class="invalid-feedback d-inline">
         <strong>{{ $message }}</strong>
 {{--        There is no such person in the database--}}
@@ -147,13 +147,13 @@
 @isset($employee->created_at)
     <div class="row">
         <div class="col-6"><b>Created at:</b>&nbsp;{{$employee->created_at->format(config('setting.date_format'))}}</div>
-        <div class="col-6"><b>Admin created ID:</b>&nbsp;{{$employee->updated_id}}</div>
+        <div class="col-6"><b>Admin created ID:</b>&nbsp;{{$employee->admin_updated_id}}</div>
     </div>
 @endisset
 @isset($employee->updated_at)
     <div class="row">
         <div class="col-6"><b>Updated at:</b>&nbsp;{{$employee->updated_at->format(config('setting.date_format'))}}</div>
-        <div class="col-6"><b>Admin updated ID:</b>&nbsp;{{$employee->updated_id}}</div>
+        <div class="col-6"><b>Admin updated ID:</b>&nbsp;{{$employee->admin_updated_id}}</div>
     </div>
 @endisset
 

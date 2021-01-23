@@ -17,9 +17,9 @@ class CreatePositionsTable extends Migration
             $table->id();
             $table->string('name', 256);
 
-            $table->bigInteger('created_id')->unsigned();
+            $table->bigInteger('admin_created_id')->unsigned();
 
-            $table->bigInteger('updated_id')->unsigned();
+            $table->bigInteger('admin_updated_id')->unsigned();
 
             $table->timestamps();
         });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MaxDepthRule;
+use App\Rules\MaxDepthWithCurrentRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EmployeeRequest extends FormRequest
@@ -13,7 +15,7 @@ class EmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -30,8 +32,8 @@ class EmployeeRequest extends FormRequest
                 'email' => ['required', 'email'],
                 'phone' => ['required', 'phone:UA'],
                 'position_id' => ['required', 'integer', 'exists:positions,id'],
-                'salary' => ['required', 'numeric', 'between:0,500.00', 'regex:/^\d+(\.\d{1,3})?$/'],
-                'head_id' => ['required', 'integer', 'exists:employees,id'],
+                'salary' => ['required', 'numeric', 'between:0,500.000', 'regex:/^\d+(\.\d{1,3})?$/'],
+                'parent_id' => ['nullable', 'integer', 'exists:employees,id', new MaxDepthRule()],
                 'date_of_employment' => ['required', 'date'],
             ];
         }else{
@@ -41,8 +43,8 @@ class EmployeeRequest extends FormRequest
                     'email' => ['nullable', 'email'],
                     'phone' => ['nullable', 'phone:UA'],
                     'position_id' => ['nullable', 'integer', 'exists:positions,id'],
-                    'salary' => ['nullable', 'numeric', 'between:0,500.00', 'regex:/^\d+(\.\d{1,3})?$/'],
-                    'head_id' => ['nullable', 'integer', 'exists:employees,id'],
+                    'salary' => ['nullable', 'numeric', 'between:0,500.000', 'regex:/^\d+(\.\d{1,3})?$/'],
+                    'parent_id' => ['nullable', 'integer', 'exists:employees,id', new MaxDepthWithCurrentRule($this->employee)],
                     'date_of_employment' => ['nullable', 'date'],
                 ];
         }

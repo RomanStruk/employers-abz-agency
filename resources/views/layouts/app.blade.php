@@ -20,13 +20,14 @@
 
 <div class="wrapper">
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-secondary">
+    <nav class="main-header navbar navbar-expand navbar-gray-dark">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
+        @auth()
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link " href="{{ route('logout') }}"
@@ -41,6 +42,7 @@
                 </form>
             </li>
         </ul>
+        @endauth
     </nav>
     <!-- /.navbar -->
 
@@ -92,6 +94,13 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h5><i class="icon fas fa-check"></i> Success</h5>
                     {!! \Session::get('success') !!}
+                </div>
+            @endif
+            @if (\Session::has('error'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-close"></i> Error</h5>
+                    {!! \Session::get('error') !!}
                 </div>
             @endif
         </section>
