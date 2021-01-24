@@ -130,21 +130,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        // if employee has children
-        // and he`s root
-        // make his children as root
-        // or children make as employees for parent
-        if ($employee->children->count() > 0){
-            if ($employee->isRoot()){
-                foreach ($employee->children as $child){
-                    $child->makeRoot()->save();
-                }
-            }else{
-                foreach ($employee->children as $child){
-                    $child->appendToNode($employee->parent)->save();
-                }
-            }
-        }
         $this->deletePhoto($employee->photo);
         // delete employee
         $employee->delete();
